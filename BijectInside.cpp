@@ -31,19 +31,14 @@ int findMMI_fermat(int n,int M)
 int main(){
     int i=1;
     int MOD=1000000007;
-    /*while(i<=100000)
-    {
-        fact[i]=(fact[i-1]*i)%MOD;
-        i++;
-    }*/
     int t;
     scanf("%d", &t);
     long long ans=0;
-    unsigned long long fib[10000000];
+    int fib[10000000];
     int k=3;fib[1]=1;fib[2]=2;
     while(k<10000000){
        //fib[k]=findMMI_fermat(fib[k-1]+fib[k-2], MOD);
-       fib[k]=(fib[k-1]+fib[k-2])%MOD;
+       fib[k]=((fib[k-1]%MOD)+(fib[k-2]%MOD))%MOD;
         ++k;
     }
     //std::cout<<fib[41]<<std::endl<<pow(2, 40)<<std::endl;
@@ -57,8 +52,10 @@ int main(){
         else{
             den=fast_pow(2, n, MOD);
             //std::cout<<den<<std::endl;
-            //num=(long long)pow(2, n)-fib[n];
-            num=den-fib[n];
+            //num=((long long)pow(2, n))%MOD;
+            num=den;
+            num=(num%MOD-(fib[n]%MOD)+MOD)%MOD;
+            //num=den-fib[n];
             //std::cout<<den<<std::endl<<num<<std::endl;
         }
         den=findMMI_fermat(den, MOD);
